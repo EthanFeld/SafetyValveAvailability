@@ -7,7 +7,8 @@ Safety Valve Availability (SVA) measures the outlets a quarterback has under pre
 ## Explore the site
 
 - **Film Room** — Pick an offense, game, and play. Replay the tracking, scrub the timeline, or step through individual frames. The gold ring identifies the highest-scoring starter on the displayed lineup. The dashed aqua ring identifies the best in-range throw on the current pressure frame.
-- **Leaderboard** — Compare 183 players across all 32 teams. Filter by team and position, then sort by onset SVA, full-window SVA, catch probability, or expected EPA. A player tracked with multiple teams can appear under each. Displayed scores are pooled across the sample.
+- **Leaderboard** — Search 183 players across all 32 teams by name. Combine the search with team and position filters, then sort by onset SVA, full-window SVA, catch probability, or expected EPA. A player tracked with multiple teams can appear under each. Displayed scores are pooled across the sample.
+- **Side-by-side comparison** — Check the box beside each of two receivers and choose **Compare players** to see their grades, forecasts, route samples, and opening breakdowns on the same rows. Selections stay in place when you search or change filters, so you can pair receivers from different teams or positions.
 - **Player profiles** — Select a player’s name for a breakdown of the forecasts, context benchmarks, and opening frequency behind their scores. Choose a play from the profile to jump to the player’s first open pressure frame, where their in-range throw score reached at least 25 out of 100.
 - **Sample sizes** — The analysis leaderboards require at least 30 eligible routes. The site also shows provisional grades based on 15–29 eligible routes, marked with an asterisk. A dash indicates that a metric is unavailable.
 

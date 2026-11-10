@@ -29,13 +29,13 @@ function number(value, formatter) {
   return Number.isFinite(value) ? formatter(value) : "—";
 }
 
-const grade = (value) => number(value, (v) => v.toFixed(1));
-const percent = (value) => number(value, (v) => `${(100 * v).toFixed(1)}%`);
-const points = (value) => number(value, (v) => `${signedPp.format(v)} pp`);
-const epa = (value) => number(value, (v) => signedEpa.format(v));
-const time = (value) => number(value, (v) => `${v.toFixed(1)} s`);
+export const grade = (value) => number(value, (v) => v.toFixed(1));
+export const percent = (value) => number(value, (v) => `${(100 * v).toFixed(1)}%`);
+export const points = (value) => number(value, (v) => `${signedPp.format(v)} pp`);
+export const epa = (value) => number(value, (v) => signedEpa.format(v));
+export const time = (value) => number(value, (v) => `${v.toFixed(1)} s`);
 
-function loadProfiles() {
+export function loadProfiles() {
   if (!profilesRequest) {
     profilesRequest = fetch("./data/player-profiles.json")
       .then((response) => {

@@ -166,7 +166,11 @@
           <p class="eyebrow">Receiver comparison</p>
           <h2 id="leaderboard-title">Safety Valve Leaderboard</h2>
         </div>
-        <div class="leaderboard-controls" aria-label="Leaderboard filters">
+        <div class="leaderboard-controls" role="group" aria-label="Leaderboard filters">
+          <label class="select-field leaderboard-search-field" for="leaderboard-search">
+            <span>Player search</span>
+            <input id="leaderboard-search" type="search" placeholder="Search by player name" autocomplete="off" spellcheck="false" disabled>
+          </label>
           <label class="select-field" for="leaderboard-team">
             <span>Team</span>
             <select id="leaderboard-team" disabled><option value="">All teams</option></select>
@@ -178,6 +182,17 @@
         </div>
       </div>
       <p id="leaderboard-scope" class="lineup-note">The team filter uses tracked appearances. Scores always summarize the full Weeks 1–8 sample.</p>
+      <section class="leaderboard-compare-tray" aria-labelledby="leaderboard-compare-title">
+        <div>
+          <h3 id="leaderboard-compare-title">Compare receivers</h3>
+          <div id="leaderboard-selection" class="leaderboard-selection"></div>
+          <p id="leaderboard-compare-status" class="leaderboard-compare-status" role="status">Check the boxes beside two players to compare them.</p>
+        </div>
+        <div class="leaderboard-compare-actions">
+          <button id="leaderboard-clear" class="profile-close" type="button" disabled>Clear selection</button>
+          <button id="leaderboard-compare" class="play-button" type="button" aria-haspopup="dialog" aria-controls="player-comparison" disabled>Compare players</button>
+        </div>
+      </section>
       <p id="leaderboard-status" class="status" role="status">Loading the leaderboard…</p>
       <p class="leaderboard-scroll-tip">Scroll across the table to see all four metrics.</p>
       <div class="leaderboard-scroll" tabindex="0" role="region" aria-label="Scrollable leaderboard" aria-describedby="leaderboard-scope leaderboard-note">
@@ -222,6 +237,27 @@
           <p class="score-note">Each replay opens at the first frame where this receiver met the in-range throw-quality threshold under pressure.</p>
           <ul id="player-profile-plays" class="profile-play-list"></ul>
         </section>
+      </div>
+    </dialog>
+
+    <dialog id="player-comparison" class="player-profile player-comparison" aria-labelledby="comparison-title">
+      <header class="player-profile-header">
+        <div>
+          <p class="eyebrow">Receiver breakdowns</p>
+          <h2 id="comparison-title">Compare players</h2>
+        </div>
+        <form method="dialog">
+          <button id="comparison-close" class="profile-close" type="submit" autofocus>Close</button>
+        </form>
+      </header>
+      <div class="player-profile-content comparison-content" tabindex="0" role="region" aria-label="Side-by-side SVA breakdowns">
+        <p id="comparison-status" class="status" role="status"></p>
+        <table class="comparison-table" aria-describedby="comparison-note">
+          <caption class="visually-hidden">Side-by-side comparison of receiver grades and model breakdowns</caption>
+          <thead id="comparison-head"></thead>
+          <tbody id="comparison-rows"></tbody>
+        </table>
+        <p id="comparison-note" class="score-note">Lifts compare similar in-range opportunities. First openings are timed from pressure onset. A dash marks an unavailable metric. Grades and forecasts summarize the full Weeks 1–8 sample.</p>
       </div>
     </dialog>
 
