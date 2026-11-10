@@ -117,7 +117,7 @@ function replayCard(play, player) {
   const query = new URLSearchParams({
     team: play.team, game: play.gameId, play: play.playId, player: player.id, open: "1",
   });
-  link.href = `./?${query}#replay`;
+  link.href = `./film-room.html?${query}#replay`;
   link.setAttribute("aria-label", `Replay ${player.name} opening in ${heading}, play ${play.playId}`);
   const body = element("div", undefined, "profile-play-body");
   body.append(element("p", heading, "profile-play-heading"), element("p", play.description, "play-description"),

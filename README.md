@@ -1,11 +1,12 @@
 # Safety Valve Availability
 
-[**Open the Safety Valve Film Room**](https://ethanfeld.github.io/SafetyValveAvailability/) · [**Player leaderboard**](https://ethanfeld.github.io/SafetyValveAvailability/#leaderboard)
+[**Read the story**](https://ethanfeld.github.io/SafetyValveAvailability/) · [**Open the Film Room**](https://ethanfeld.github.io/SafetyValveAvailability/film-room.html) · [**Player leaderboard**](https://ethanfeld.github.io/SafetyValveAvailability/film-room.html#leaderboard)
 
 Safety Valve Availability (SVA) measures the outlets a quarterback has under pressure, including routes that never receive a target. The Film Room pairs receiver grades with frame-by-frame tracking from **2,756 pressure plays across 122 games** in Weeks 1–8 of the 2021 NFL season.
 
 ## Explore the site
 
+- **Story** — See why an available outlet matters under pressure, how SVA measures it, and what the tracking sample supports.
 - **Film Room** — Pick an offense, game, and play. Replay the tracking, scrub the timeline, or step through individual frames. The gold ring identifies the highest-scoring starter on the displayed lineup. The dashed aqua ring identifies the best in-range throw on the current pressure frame.
 - **Leaderboard** — Search 183 players across all 32 teams by name. Combine the search with team and position filters, then sort by onset SVA, full-window SVA, catch probability, or expected EPA. A player tracked with multiple teams can appear under each. Displayed scores are pooled across the sample.
 - **Side-by-side comparison** — Check the box beside each of two receivers and choose **Compare players** to see their grades, forecasts, route samples, and opening breakdowns on the same rows. Selections stay in place when you search or change filters, so you can pair receivers from different teams or positions.
@@ -35,7 +36,7 @@ The sample covers eight weeks of one season. Catch and EPA forecasts are trained
 
 ## Run locally
 
-The prebuilt site needs only a static HTTP server. With Python installed, run these commands from the repository root and open [the local Film Room](http://127.0.0.1:8000/).
+The prebuilt site needs only a static HTTP server. With Python installed, run these commands from the repository root and open the story or go straight to the Film Room. [Local story](http://127.0.0.1:8000/) · [Local Film Room](http://127.0.0.1:8000/film-room.html)
 
 ```sh
 git clone https://github.com/EthanFeld/SafetyValveAvailability.git
@@ -68,7 +69,7 @@ The committed `docs/lineups.json` is enough for a local rebuild. To refresh it f
 
 | Path | Contents |
 | --- | --- |
-| [`docs/`](docs/) | Static Film Room, leaderboard, player profiles, starting lineups, and per-game replay files. |
+| [`docs/`](docs/) | Story page, Film Room, leaderboard, player profiles, starting lineups, and per-game replay files. |
 | [`safety_valve.py`](safety_valve.py), [`sva_data.py`](sva_data.py) | Tracking ingestion, pressure detection, throw geometry, and frame-level scoring. |
 | [`train_sva_joint.py`](train_sva_joint.py), [`rank_context_sva.py`](rank_context_sva.py), [`evaluate_temporal_sva.py`](evaluate_temporal_sva.py) | Catch and EPA models, receiver grading, and held-out evaluation. |
 | [`build_site_data.py`](build_site_data.py), [`build_site_lineups.py`](build_site_lineups.py), [`build_site_leaderboard.py`](build_site_leaderboard.py), [`build_site_profiles.py`](build_site_profiles.py) | Static site data exporters. |

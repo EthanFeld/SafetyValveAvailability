@@ -4,266 +4,216 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Watch 2021 NFL pressure plays and compare the receivers who give their quarterbacks a way out.">
-  <title>Safety Valve Film Room</title>
+  <meta name="description" content="See how NFL receivers create easy throws under pressure, even on plays where the ball goes elsewhere. Explore 2,756 pressure plays with Safety Valve Availability.">
+  <title>The Hidden Value of a Safety Valve | QB Safety Blanket</title>
+  <script src="./home-route.js"></script>
   <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./app.js"></script>
-  <script type="module" src="./leaderboard.js"></script>
+  <link rel="stylesheet" href="./story.css">
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to the film room</a>
+<body class="story">
+  <a class="skip-link" href="#main">Skip to the story</a>
   <header class="masthead">
     <div class="shell masthead-inner">
-      <a class="brand" href="./" aria-label="QB Safety Blanket home">
+      <a class="brand" href="./" aria-current="page">
         <span class="brand-mark" aria-hidden="true"><span></span></span>
         <span>QB Safety Blanket</span>
       </a>
-      <nav class="masthead-nav" aria-label="Film room sections">
-        <a href="#replay">Replay</a>
-        <a href="#lineup">Lineup</a>
-        <a href="#leaderboard">Leaderboard</a>
+      <nav class="masthead-nav" aria-label="Main navigation">
+        <a href="#method">How it works</a>
+        <a href="./film-room.html">Film Room</a>
+        <a href="./film-room.html#leaderboard">Leaderboard</a>
+        <a href="#explore">Data</a>
       </nav>
       <span class="season-tag">2021 <span>·</span> WEEKS 1–8</span>
     </div>
   </header>
 
-  <main id="main" class="shell">
-    <section class="intro" aria-labelledby="site-title">
+  <main id="main" class="shell story-main">
+    <section class="story-hero" aria-labelledby="story-title">
+      <div class="story-hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> An NFL tracking study</p>
+        <h1 id="story-title">The hidden value of a <em>safety valve.</em></h1>
+        <p>When the pocket breaks down, an easy throw can give the quarterback a way out. A receiver can create that option without getting a target. Safety Valve Availability (SVA) uses tracking data to put those overlooked routes on the record.</p>
+        <div class="story-actions">
+          <a class="story-button story-button-primary" href="./film-room.html">Open the Film Room <span aria-hidden="true">↗</span></a>
+          <a class="story-button" href="#method">How SVA works <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <figure class="story-film">
+        <div class="story-film-meta">
+          <span>WEEK 02 <b>JAX vs DEN</b></span>
+          <span>3RD &amp; 6</span>
+        </div>
+        <svg class="story-field" viewBox="0 0 520 340" role="img" aria-labelledby="field-title field-desc">
+          <title id="field-title">James Robinson’s opening at pressure onset</title>
+          <desc id="field-desc">A cropped tracking frame. Von Miller closes in on Trevor Lawrence. James Robinson is available on the other side of Lawrence, about five yards away. Lawrence ultimately takes a sack.</desc>
+          <defs>
+            <pattern id="field-hashes" width="21" height="340" patternUnits="userSpaceOnUse" x="2">
+              <path d="M0 28h4 M0 311h4" class="field-gridline"/>
+            </pattern>
+          </defs>
+          <rect width="520" height="340" class="field-base"/>
+          <rect x="191" width="105" height="340" class="field-band"/>
+          <rect x="401" width="105" height="340" class="field-band"/>
+          <rect width="520" height="340" fill="url(#field-hashes)"/>
+          <path d="M86 0v340 M191 0v340 M296 0v340 M401 0v340 M506 0v340" class="field-gridline"/>
+          <path d="M380 0v340" class="field-scrimmage"/>
+          <text x="180" y="55" class="field-yard">30</text>
+          <text x="390" y="55" class="field-yard">40</text>
+          <g class="field-offense">
+            <circle cx="294" cy="152" r="5"/>
+            <circle cx="258" cy="205" r="5"/>
+            <circle cx="208" cy="224" r="5"/>
+            <circle cx="191" cy="115" r="5"/>
+            <circle cx="203" cy="127" r="5"/>
+          </g>
+          <g class="field-defense">
+            <circle cx="516" cy="299" r="5"/>
+            <circle cx="310" cy="146" r="5"/>
+            <circle cx="277" cy="209" r="5"/>
+            <circle cx="201" cy="108" r="5"/>
+            <circle cx="180" cy="230" r="5"/>
+          </g>
+          <path d="M216 105v44" class="field-pressure-line"/>
+          <path d="M221 179l27 64" class="field-outlet-line"/>
+          <circle cx="216" cy="92" r="13" class="field-pressure-ring"/>
+          <circle cx="216" cy="92" r="7" class="field-pressure-dot"/>
+          <circle cx="216" cy="165" r="12" class="field-quarterback"/>
+          <circle cx="254" cy="255" r="19" class="field-outlet-ring"/>
+          <circle cx="254" cy="255" r="9" class="field-outlet-dot"/>
+          <path d="M203 92h-35 M202 165h-42 M271 261l24 15h17" class="field-callout"/>
+          <text x="158" y="96" text-anchor="end" class="field-label field-pressure-label">Miller</text>
+          <text x="150" y="169" text-anchor="end" class="field-label">Lawrence</text>
+          <text x="321" y="281" class="field-label field-outlet-label">Robinson</text>
+          <text x="321" y="302" class="field-sub">Available outlet</text>
+          <text x="20" y="319" class="field-sub">PRESSURE ONSET</text>
+        </svg>
+        <figcaption class="story-film-caption">
+          <span><strong>James Robinson</strong> · Open on 14 of 14 pressure frames</span>
+          <a href="./film-room.html?team=JAX&amp;game=2021091904&amp;play=2261&amp;player=52733&amp;open=1#replay">Watch the play <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <dl class="story-sample" aria-label="2021 NFL tracking sample">
+      <div><dt>Pressure plays</dt><dd>2,756</dd></div>
+      <div><dt>Tracked games</dt><dd>122</dd></div>
+      <div><dt>Receivers on the leaderboard</dt><dd>183</dd></div>
+    </dl>
+
+    <section class="story-section story-split" aria-labelledby="why-title">
       <div>
-        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Pressure tracking</p>
-        <h1 id="site-title">Safety Valve Film Room</h1>
-        <p class="intro-copy">Find the outlet when the pocket breaks down. Replay a pressure snap or compare receivers across the tracking sample.</p>
+        <p class="eyebrow"><span>01</span> The missing credit</p>
+        <h2 id="why-title">A route can matter without a target.</h2>
+        <p>Targets, catches and yards tell you where the ball went. They leave out the back who slipped into the flat or the tight end who gave the quarterback a short throw before the rush arrived.</p>
+        <p>Against Denver, James Robinson cleared the model’s opening threshold on every active pressure frame of this third down. Trevor Lawrence took a four-yard sack. The box score records the sack. The film also shows the outlet Jacksonville had available.</p>
       </div>
-      <div class="sample-note" aria-label="122 tracked games at 10 frames per second">
-        <div><strong>122</strong><span>Tracked games</span></div>
-        <div><strong>10 Hz</strong><span>Player tracking</span></div>
-      </div>
+      <aside class="story-stat-panel" aria-labelledby="pressure-cost">
+        <p class="eyebrow" id="pressure-cost">The cost of pressure</p>
+        <p class="story-large-stat">−0.70 <span>EPA / play</span></p>
+        <p>Across the 2,756 pressure plays, offenses averaged −0.35 expected points added (EPA). A model trained on clean dropbacks predicted +0.35 in similar situations.</p>
+        <p class="story-note">This gap describes the sample against a modeled baseline.</p>
+      </aside>
     </section>
 
-    <section class="selectors" aria-label="Choose a team, game, play, and score">
-      <label class="select-field" for="team-select">
-        <span>Offensive team</span>
-        <select id="team-select"><option>Loading teams…</option></select>
-      </label>
-      <label class="select-field" for="game-select">
-        <span>Game</span>
-        <select id="game-select"><option>Select a team</option></select>
-      </label>
-      <label class="select-field select-play" for="play-select">
-        <span>Pressure play</span>
-        <select id="play-select"><option>Select a game</option></select>
-      </label>
-      <label class="select-field select-model" for="model-select">
-        <span>Lineup score</span>
-        <select id="model-select">
-          <option value="onset">Onset SVA</option>
-          <option value="temporal">Full-window SVA</option>
-        </select>
-      </label>
+    <section id="method" class="story-section" aria-labelledby="method-title">
+      <div class="story-section-intro">
+        <p class="eyebrow"><span>02</span> How SVA works</p>
+        <h2 id="method-title">Measure the throw the quarterback has.</h2>
+        <p>SVA follows the routes in reach while the quarterback is under pressure. It grades the quality of each opportunity and compares receivers with similar chances.</p>
+      </div>
+      <ol class="story-steps">
+        <li>
+          <span class="story-step-number" aria-hidden="true">01</span>
+          <h3>Find the window</h3>
+          <p>Start when a credited rusher closes in. Follow the play until the pass, sack or run. A route is eligible only when the receiver projects within 20 yards of the quarterback, so a receiver running deeper stays outside the sample until they come into range.</p>
+        </li>
+        <li>
+          <span class="story-step-number" aria-hidden="true">02</span>
+          <h3>Read the throwing lane</h3>
+          <p>Score projected separation, catch radius, distance, bodies in the lane and the quarterback’s throwing hand. Those details distinguish a short, clear throw from one the quarterback has to squeeze through traffic.</p>
+        </li>
+        <li>
+          <span class="story-step-number" aria-hidden="true">03</span>
+          <h3>Grade comparable routes</h3>
+          <p>Estimate catch probability and EPA if targeted, then compare them with position and situation benchmarks. The EPA component accounts for catch probability so the grade can distinguish catchability from the value of the play.</p>
+        </li>
+      </ol>
+      <dl class="story-score-strip">
+        <div><dt>Onset SVA</dt><dd>Measures the outlet at the first pressure frame.</dd></div>
+        <div><dt>Full-window SVA</dt><dd>Also rewards receivers who get open sooner and on more of the pressure window.</dd></div>
+        <div><dt>50 on either grade</dt><dd>Reference point for comparable opportunities on the 0–100 scale.</dd></div>
+      </dl>
+      <p class="story-case"><strong>What the adjustment changes.</strong> Michael Pittman ranked 42nd out of 66 qualified receivers on raw throw quality and fourth on onset SVA for the same routes. His catch probability beat the benchmark for similar opportunities by 3.1 percentage points. His expected EPA also beat the benchmark at the same catch probability.</p>
     </section>
-    <p id="status" class="status" role="status">Loading the play library…</p>
-    <noscript><p class="status">Enable JavaScript to browse the lineup and replay tracking frames.</p></noscript>
 
-    <div class="film-grid">
-      <section id="replay" class="panel replay-panel" aria-labelledby="play-title">
-        <div class="panel-top">
-          <div>
-            <p id="play-week" class="eyebrow">Film replay</p>
-            <h2 id="play-title">Pressure replay</h2>
-          </div>
-          <span id="pressure-label" class="pressure-badge">Awaiting tracking</span>
+    <section class="story-section story-split story-results" aria-labelledby="evidence-title">
+      <div>
+        <p class="eyebrow"><span>03</span> What the test found</p>
+        <h2 id="evidence-title">Timing adds detail to the film.</h2>
+        <p>Looking beyond onset captured 265 more in-range routes. The later frames let you see who became an option after pressure arrived and how long the quarterback had that throw.</p>
+        <p>On held-out games, adding early opening timing modestly improved catch prediction in a matched sample. Team EPA prediction showed essentially the same error, and onset grades were more stable across split samples. Use onset to compare receivers and the full window to see when their openings appeared.</p>
+        <p class="story-note">Forecasts learn from observed targets. For untargeted outlets, they estimate what a throw might yield. The eight-week sample measures available options and leaves the effect of choosing a different target open for further study.</p>
+        <a class="story-text-link" href="https://github.com/EthanFeld/SafetyValveAvailability#validation-and-interpretation">Read the validation details <span aria-hidden="true">↗</span></a>
+      </div>
+      <dl class="story-evidence">
+        <div>
+          <dt>In-range routes</dt>
+          <dd><span>6,270</span><span class="story-arrow"> → </span><strong>6,535</strong><small>Onset only vs. the full pressure window</small></dd>
         </div>
-        <p id="play-description" class="play-description">Choose a play to see the tracking and available outlets.</p>
-        <dl class="play-facts">
-          <div><dt>Down</dt><dd id="play-down">—</dd></div>
-          <div><dt>To go</dt><dd id="play-distance">—</dd></div>
-          <div><dt>Offensive EPA</dt><dd id="play-epa">—</dd></div>
-        </dl>
+        <div>
+          <dt>Catch prediction AUC</dt>
+          <dd><span>0.553</span><span class="story-arrow"> → </span><strong>0.563</strong><small>Onset index vs. adding early opening timing on 834 matched targets</small></dd>
+        </div>
+        <div>
+          <dt>Team EPA prediction error</dt>
+          <dd><span>1.7685</span><span class="story-arrow"> → </span><strong>1.7699</strong><small>RMSE on 2,230 held-out plays. Lower is better.</small></dd>
+        </div>
+      </dl>
+    </section>
 
-        <div class="field-stage">
-          <canvas id="field-canvas" width="1200" height="533" role="img" aria-label="Animated football field with offensive and defensive players, the ball, and safety valve markers.">
-            Your browser does not support the football field canvas. The play description, timing, and lineup are available as text.
-          </canvas>
+    <section id="explore" class="story-section story-explore" aria-labelledby="explore-title">
+      <div class="story-section-intro">
+        <p class="eyebrow"><span>04</span> Explore the data</p>
+        <h2 id="explore-title">Find your own safety valve.</h2>
+      </div>
+      <div class="story-destinations">
+        <a href="./film-room.html#replay">
+          <span class="eyebrow">01 · Replays</span>
+          <strong>Watch the film <span aria-hidden="true">↗</span></strong>
+          <span>Replay pressure snaps, scrub the timeline and find the open receiver.</span>
+        </a>
+        <a href="./film-room.html#lineup">
+          <span class="eyebrow">02 · Teams</span>
+          <strong>Browse lineups <span aria-hidden="true">↗</span></strong>
+          <span>Pick a team and game to see the starters and their designated safety valve.</span>
+        </a>
+        <a href="./film-room.html#leaderboard">
+          <span class="eyebrow">03 · Players</span>
+          <strong>Compare receivers <span aria-hidden="true">↗</span></strong>
+          <span>Search the leaderboard, compare two breakdowns and replay individual openings.</span>
+        </a>
+      </div>
+      <div class="story-data">
+        <div>
+          <h3>Data and methods</h3>
+          <p>Inspect the tables behind the story or rebuild the analysis from the source files.</p>
         </div>
-
-        <div class="playback">
-          <div class="transport" role="group" aria-label="Playback">
-            <button id="step-back" type="button" class="icon-button" aria-label="Step back one frame" title="Step back one frame">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14m12-13-9 6 9 6z"/></svg>
-            </button>
-            <button id="play-toggle" type="button" class="play-button" aria-label="Play or pause replay">Play</button>
-            <button id="step-forward" type="button" class="icon-button" aria-label="Step forward one frame" title="Step forward one frame">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6z"/></svg>
-            </button>
-          </div>
-          <div class="scrubber">
-            <label class="visually-hidden" for="timeline">Replay timeline</label>
-            <input id="timeline" type="range" min="0" max="0" value="0" step="1">
-            <div class="scrub-labels"><span id="time-label">0.0 s</span><span id="frame-label">Frame —</span></div>
-          </div>
-          <label class="speed-field" for="speed-select">
-            <span class="visually-hidden">Playback speed</span>
-            <select id="speed-select">
-              <option value="0.5">0.5×</option>
-              <option value="1" selected>1×</option>
-              <option value="1.5">1.5×</option>
-              <option value="2">2×</option>
-            </select>
-          </label>
-        </div>
-        <div class="frame-detail"><span>Tracking event</span><span id="event-label">—</span></div>
-        <div class="frame-detail"><span>Best in-range throw</span><span id="frame-outlet">—</span></div>
-        <ul class="field-key" aria-label="Field marker legend">
-          <li><span class="marker marker-offense" aria-hidden="true"></span><span id="offense-label">Offense</span></li>
-          <li><span class="marker marker-defense" aria-hidden="true"></span><span id="defense-label">Defense</span></li>
-          <li><span class="marker marker-ball" aria-hidden="true"></span>Ball</li>
-          <li><span class="marker marker-valve" aria-hidden="true"></span>Lineup safety valve</li>
-          <li><span class="marker marker-best" aria-hidden="true"></span>Best outlet this frame</li>
-          <li><span class="marker marker-selected" aria-hidden="true"></span>Selected player</li>
+        <ul>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability/blob/main/sva_context_leaderboard.csv">Onset grades</a></li>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability/blob/main/sva_temporal_leaderboard.csv">Full-window grades</a></li>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability/blob/main/sva_temporal_routes.csv">Route-level openings</a></li>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability/blob/main/sva_epa_plays.csv">Play-level EPA</a></li>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability/releases/tag/data-2021">Raw tracking archive</a></li>
+          <li><a href="https://github.com/EthanFeld/SafetyValveAvailability">Code and methodology</a></li>
         </ul>
-        <p id="selected-player" class="selected-player" aria-live="polite"></p>
-        <p class="score-note">Tracking ends shortly after the throw, sack, or scramble decision. The description and EPA show the recorded play result.</p>
-      </section>
-
-      <section id="lineup" class="panel lineup-panel" aria-labelledby="lineup-title">
-        <div class="panel-top lineup-top">
-          <div>
-            <p class="eyebrow">Offensive personnel</p>
-            <h2 id="lineup-title">Game lineup</h2>
-          </div>
-        </div>
-        <p id="lineup-note" class="lineup-note">Select a game to see the offensive lineup and available receiver scores.</p>
-
-        <div class="designated">
-          <span class="designated-mark" aria-hidden="true"><span></span></span>
-          <div class="designated-copy">
-            <p class="eyebrow">Designated safety valve</p>
-            <p id="valve-name" class="valve-name">Awaiting lineup</p>
-            <p id="valve-position" class="valve-position"></p>
-          </div>
-          <div class="designated-score">
-            <strong id="valve-score">—</strong>
-            <span>SVA</span>
-          </div>
-        </div>
-
-        <table class="lineup-table">
-          <caption class="visually-hidden">Offensive lineup and player Safety Valve Availability scores</caption>
-          <thead>
-            <tr><th scope="col">Pos</th><th scope="col">Player</th><th scope="col">SVA</th></tr>
-          </thead>
-          <tbody id="lineup-rows">
-            <tr><td colspan="3" class="empty-lineup">Select a game to load its lineup.</td></tr>
-          </tbody>
-        </table>
-        <p class="score-note">Onset SVA compares outlets at the first pressure frame. Full-window SVA also accounts for opening timing and frequency. A star marks a provisional grade based on 15–29 eligible routes. A dash marks a player without a qualifying score.</p>
-      </section>
-    </div>
-
-    <section id="leaderboard" class="panel leaderboard-panel" aria-labelledby="leaderboard-title">
-      <div class="panel-top leaderboard-top">
-        <div>
-          <p class="eyebrow">Receiver comparison</p>
-          <h2 id="leaderboard-title">Safety Valve Leaderboard</h2>
-        </div>
-        <div class="leaderboard-controls" role="group" aria-label="Leaderboard filters">
-          <label class="select-field leaderboard-search-field" for="leaderboard-search">
-            <span>Player search</span>
-            <input id="leaderboard-search" type="search" placeholder="Search by player name" autocomplete="off" spellcheck="false" disabled>
-          </label>
-          <label class="select-field" for="leaderboard-team">
-            <span>Team</span>
-            <select id="leaderboard-team" disabled><option value="">All teams</option></select>
-          </label>
-          <label class="select-field" for="leaderboard-position">
-            <span>Position</span>
-            <select id="leaderboard-position" disabled><option value="">All positions</option></select>
-          </label>
-        </div>
       </div>
-      <p id="leaderboard-scope" class="lineup-note">The team filter uses tracked appearances. Scores always summarize the full Weeks 1–8 sample.</p>
-      <section class="leaderboard-compare-tray" aria-labelledby="leaderboard-compare-title">
-        <div>
-          <h3 id="leaderboard-compare-title">Compare receivers</h3>
-          <div id="leaderboard-selection" class="leaderboard-selection"></div>
-          <p id="leaderboard-compare-status" class="leaderboard-compare-status" role="status">Check the boxes beside two players to compare them.</p>
-        </div>
-        <div class="leaderboard-compare-actions">
-          <button id="leaderboard-clear" class="profile-close" type="button" disabled>Clear selection</button>
-          <button id="leaderboard-compare" class="play-button" type="button" aria-haspopup="dialog" aria-controls="player-comparison" disabled>Compare players</button>
-        </div>
-      </section>
-      <p id="leaderboard-status" class="status" role="status">Loading the leaderboard…</p>
-      <p class="leaderboard-scroll-tip">Scroll across the table to see all four metrics.</p>
-      <div class="leaderboard-scroll" tabindex="0" role="region" aria-label="Scrollable leaderboard" aria-describedby="leaderboard-scope leaderboard-note">
-        <table class="leaderboard-table">
-          <caption class="visually-hidden">Receiver metrics. Rank follows the selected sort and filters.</caption>
-          <thead>
-            <tr>
-              <th scope="col" aria-label="Rank">#</th>
-              <th scope="col">Player</th>
-              <th scope="col">Team</th>
-              <th scope="col">Pos</th>
-              <th scope="col" aria-sort="descending"><button type="button" data-sort="onset" disabled>Onset SVA <span aria-hidden="true"></span></button></th>
-              <th scope="col"><button type="button" data-sort="temporal" disabled>Full-window SVA <span aria-hidden="true"></span></button></th>
-              <th scope="col"><button type="button" data-sort="catchProbability" disabled>Catch probability <span aria-hidden="true"></span></button></th>
-              <th scope="col"><button type="button" data-sort="expectedEpa" disabled>Expected EPA <span aria-hidden="true"></span></button></th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-rows">
-            <tr><td colspan="8" class="empty-lineup">Loading receiver scores…</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p id="leaderboard-note" class="score-note">Select a player to see the score breakdown and replay their openings. Catch probability is an average model estimate at pressure onset, and expected EPA is per comparable target. An asterisk marks a provisional grade with 15–29 eligible routes. A dash marks a metric without a qualifying sample.</p>
     </section>
-
-    <dialog id="player-profile" class="player-profile" aria-labelledby="player-profile-title">
-      <header class="player-profile-header">
-        <div>
-          <p id="player-profile-teams" class="eyebrow">Receiver profile</p>
-          <h2 id="player-profile-title">Player profile</h2>
-        </div>
-        <form method="dialog">
-          <button id="player-profile-close" class="profile-close" type="submit" autofocus>Close</button>
-        </form>
-      </header>
-      <div class="player-profile-content">
-        <dl id="player-profile-scores" class="profile-scores" aria-label="Leaderboard scores"></dl>
-        <p id="player-profile-status" class="status" role="status"></p>
-        <div id="player-profile-breakdown" class="profile-breakdown"></div>
-        <section aria-labelledby="player-profile-plays-title" class="profile-replays">
-          <h3 id="player-profile-plays-title">Open under pressure</h3>
-          <p class="score-note">Each replay opens at the first frame where this receiver met the in-range throw-quality threshold under pressure.</p>
-          <ul id="player-profile-plays" class="profile-play-list"></ul>
-        </section>
-      </div>
-    </dialog>
-
-    <dialog id="player-comparison" class="player-profile player-comparison" aria-labelledby="comparison-title">
-      <header class="player-profile-header">
-        <div>
-          <p class="eyebrow">Receiver breakdowns</p>
-          <h2 id="comparison-title">Compare players</h2>
-        </div>
-        <form method="dialog">
-          <button id="comparison-close" class="profile-close" type="submit" autofocus>Close</button>
-        </form>
-      </header>
-      <div class="player-profile-content comparison-content" tabindex="0" role="region" aria-label="Side-by-side SVA breakdowns">
-        <p id="comparison-status" class="status" role="status"></p>
-        <table class="comparison-table" aria-describedby="comparison-note">
-          <caption class="visually-hidden">Side-by-side comparison of receiver grades and model breakdowns</caption>
-          <thead id="comparison-head"></thead>
-          <tbody id="comparison-rows"></tbody>
-        </table>
-        <p id="comparison-note" class="score-note">Lifts compare similar in-range opportunities. First openings are timed from pressure onset. A dash marks an unavailable metric. Grades and forecasts summarize the full Weeks 1–8 sample.</p>
-      </div>
-    </dialog>
 
     <footer class="footer">
-      <span>QB Safety Blanket <span aria-hidden="true">·</span> 2021 tracking sample</span>
-      <span><a href="https://github.com/ThompsonJamesBliss/nfl-big-data-bowl-regional-event-data" rel="noopener noreferrer">Tracking and scouting</a> · <a href="https://www.espn.com/nfl/scoreboard" rel="noopener noreferrer">ESPN starters</a> and NFL gamebooks · <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp" rel="noopener noreferrer">nflverse EPA</a></span>
+      <span>QB Safety Blanket <span aria-hidden="true">·</span> 2021 NFL tracking study</span>
+      <span><a href="https://github.com/ThompsonJamesBliss/nfl-big-data-bowl-regional-event-data">NFL tracking and PFF scouting</a> · <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse EPA</a></span>
     </footer>
   </main>
 </body>

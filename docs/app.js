@@ -435,7 +435,7 @@ async function init() {
       // Static exports can use the charted first-dropback lineup on their own.
     });
     await Promise.all([starters, selectTeam(team, initial.get("game"), initial.get("play"), replayFocus)]);
-    if ((initialHash === "#leaderboard" || initialHash === "#replay") && location.hash === initialHash) {
+    if (["#leaderboard", "#replay", "#lineup"].includes(initialHash) && location.hash === initialHash) {
       document.getElementById(initialHash.slice(1))?.scrollIntoView();
     }
   } catch (error) {

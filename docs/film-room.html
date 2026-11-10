@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Watch 2021 NFL pressure plays and compare the receivers who give their quarterbacks a way out.">
+  <title>Safety Valve Film Room</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./leaderboard.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the film room</a>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="brand" href="./" aria-label="QB Safety Blanket home">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>QB Safety Blanket</span>
+      </a>
+      <nav class="masthead-nav" aria-label="Film room navigation">
+        <a href="./">Story</a>
+        <a href="#replay">Replay</a>
+        <a href="#lineup">Lineup</a>
+        <a href="#leaderboard">Leaderboard</a>
+      </nav>
+      <span class="season-tag">2021 <span>·</span> WEEKS 1–8</span>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="site-title">
+      <div>
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Pressure tracking</p>
+        <h1 id="site-title">Safety Valve Film Room</h1>
+        <p class="intro-copy">Find the outlet when the pocket breaks down. Replay a pressure snap or compare receivers across the tracking sample.</p>
+      </div>
+      <div class="sample-note" aria-label="122 tracked games at 10 frames per second">
+        <div><strong>122</strong><span>Tracked games</span></div>
+        <div><strong>10 Hz</strong><span>Player tracking</span></div>
+      </div>
+    </section>
+
+    <section class="selectors" aria-label="Choose a team, game, play, and score">
+      <label class="select-field" for="team-select">
+        <span>Offensive team</span>
+        <select id="team-select"><option>Loading teams…</option></select>
+      </label>
+      <label class="select-field" for="game-select">
+        <span>Game</span>
+        <select id="game-select"><option>Select a team</option></select>
+      </label>
+      <label class="select-field select-play" for="play-select">
+        <span>Pressure play</span>
+        <select id="play-select"><option>Select a game</option></select>
+      </label>
+      <label class="select-field select-model" for="model-select">
+        <span>Lineup score</span>
+        <select id="model-select">
+          <option value="onset">Onset SVA</option>
+          <option value="temporal">Full-window SVA</option>
+        </select>
+      </label>
+    </section>
+    <p id="status" class="status" role="status">Loading the play library…</p>
+    <noscript><p class="status">Enable JavaScript to browse the lineup and replay tracking frames.</p></noscript>
+
+    <div class="film-grid">
+      <section id="replay" class="panel replay-panel" aria-labelledby="play-title">
+        <div class="panel-top">
+          <div>
+            <p id="play-week" class="eyebrow">Film replay</p>
+            <h2 id="play-title">Pressure replay</h2>
+          </div>
+          <span id="pressure-label" class="pressure-badge">Awaiting tracking</span>
+        </div>
+        <p id="play-description" class="play-description">Choose a play to see the tracking and available outlets.</p>
+        <dl class="play-facts">
+          <div><dt>Down</dt><dd id="play-down">—</dd></div>
+          <div><dt>To go</dt><dd id="play-distance">—</dd></div>
+          <div><dt>Offensive EPA</dt><dd id="play-epa">—</dd></div>
+        </dl>
+
+        <div class="field-stage">
+          <canvas id="field-canvas" width="1200" height="533" role="img" aria-label="Animated football field with offensive and defensive players, the ball, and safety valve markers.">
+            Your browser does not support the football field canvas. The play description, timing, and lineup are available as text.
+          </canvas>
+        </div>
+
+        <div class="playback">
+          <div class="transport" role="group" aria-label="Playback">
+            <button id="step-back" type="button" class="icon-button" aria-label="Step back one frame" title="Step back one frame">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14m12-13-9 6 9 6z"/></svg>
+            </button>
+            <button id="play-toggle" type="button" class="play-button" aria-label="Play or pause replay">Play</button>
+            <button id="step-forward" type="button" class="icon-button" aria-label="Step forward one frame" title="Step forward one frame">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6z"/></svg>
+            </button>
+          </div>
+          <div class="scrubber">
+            <label class="visually-hidden" for="timeline">Replay timeline</label>
+            <input id="timeline" type="range" min="0" max="0" value="0" step="1">
+            <div class="scrub-labels"><span id="time-label">0.0 s</span><span id="frame-label">Frame —</span></div>
+          </div>
+          <label class="speed-field" for="speed-select">
+            <span class="visually-hidden">Playback speed</span>
+            <select id="speed-select">
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+        </div>
+        <div class="frame-detail"><span>Tracking event</span><span id="event-label">—</span></div>
+        <div class="frame-detail"><span>Best in-range throw</span><span id="frame-outlet">—</span></div>
+        <ul class="field-key" aria-label="Field marker legend">
+          <li><span class="marker marker-offense" aria-hidden="true"></span><span id="offense-label">Offense</span></li>
+          <li><span class="marker marker-defense" aria-hidden="true"></span><span id="defense-label">Defense</span></li>
+          <li><span class="marker marker-ball" aria-hidden="true"></span>Ball</li>
+          <li><span class="marker marker-valve" aria-hidden="true"></span>Lineup safety valve</li>
+          <li><span class="marker marker-best" aria-hidden="true"></span>Best outlet this frame</li>
+          <li><span class="marker marker-selected" aria-hidden="true"></span>Selected player</li>
+        </ul>
+        <p id="selected-player" class="selected-player" aria-live="polite"></p>
+        <p class="score-note">Tracking ends shortly after the throw, sack, or scramble decision. The description and EPA show the recorded play result.</p>
+      </section>
+
+      <section id="lineup" class="panel lineup-panel" aria-labelledby="lineup-title">
+        <div class="panel-top lineup-top">
+          <div>
+            <p class="eyebrow">Offensive personnel</p>
+            <h2 id="lineup-title">Game lineup</h2>
+          </div>
+        </div>
+        <p id="lineup-note" class="lineup-note">Select a game to see the offensive lineup and available receiver scores.</p>
+
+        <div class="designated">
+          <span class="designated-mark" aria-hidden="true"><span></span></span>
+          <div class="designated-copy">
+            <p class="eyebrow">Designated safety valve</p>
+            <p id="valve-name" class="valve-name">Awaiting lineup</p>
+            <p id="valve-position" class="valve-position"></p>
+          </div>
+          <div class="designated-score">
+            <strong id="valve-score">—</strong>
+            <span>SVA</span>
+          </div>
+        </div>
+
+        <table class="lineup-table">
+          <caption class="visually-hidden">Offensive lineup and player Safety Valve Availability scores</caption>
+          <thead>
+            <tr><th scope="col">Pos</th><th scope="col">Player</th><th scope="col">SVA</th></tr>
+          </thead>
+          <tbody id="lineup-rows">
+            <tr><td colspan="3" class="empty-lineup">Select a game to load its lineup.</td></tr>
+          </tbody>
+        </table>
+        <p class="score-note">Onset SVA compares outlets at the first pressure frame. Full-window SVA also accounts for opening timing and frequency. A star marks a provisional grade based on 15–29 eligible routes. A dash marks a player without a qualifying score.</p>
+      </section>
+    </div>
+
+    <section id="leaderboard" class="panel leaderboard-panel" aria-labelledby="leaderboard-title">
+      <div class="panel-top leaderboard-top">
+        <div>
+          <p class="eyebrow">Receiver comparison</p>
+          <h2 id="leaderboard-title">Safety Valve Leaderboard</h2>
+        </div>
+        <div class="leaderboard-controls" role="group" aria-label="Leaderboard filters">
+          <label class="select-field leaderboard-search-field" for="leaderboard-search">
+            <span>Player search</span>
+            <input id="leaderboard-search" type="search" placeholder="Search by player name" autocomplete="off" spellcheck="false" disabled>
+          </label>
+          <label class="select-field" for="leaderboard-team">
+            <span>Team</span>
+            <select id="leaderboard-team" disabled><option value="">All teams</option></select>
+          </label>
+          <label class="select-field" for="leaderboard-position">
+            <span>Position</span>
+            <select id="leaderboard-position" disabled><option value="">All positions</option></select>
+          </label>
+        </div>
+      </div>
+      <p id="leaderboard-scope" class="lineup-note">The team filter uses tracked appearances. Scores always summarize the full Weeks 1–8 sample.</p>
+      <section class="leaderboard-compare-tray" aria-labelledby="leaderboard-compare-title">
+        <div>
+          <h3 id="leaderboard-compare-title">Compare receivers</h3>
+          <div id="leaderboard-selection" class="leaderboard-selection"></div>
+          <p id="leaderboard-compare-status" class="leaderboard-compare-status" role="status">Check the boxes beside two players to compare them.</p>
+        </div>
+        <div class="leaderboard-compare-actions">
+          <button id="leaderboard-clear" class="profile-close" type="button" disabled>Clear selection</button>
+          <button id="leaderboard-compare" class="play-button" type="button" aria-haspopup="dialog" aria-controls="player-comparison" disabled>Compare players</button>
+        </div>
+      </section>
+      <p id="leaderboard-status" class="status" role="status">Loading the leaderboard…</p>
+      <p class="leaderboard-scroll-tip">Scroll across the table to see all four metrics.</p>
+      <div class="leaderboard-scroll" tabindex="0" role="region" aria-label="Scrollable leaderboard" aria-describedby="leaderboard-scope leaderboard-note">
+        <table class="leaderboard-table">
+          <caption class="visually-hidden">Receiver metrics. Rank follows the selected sort and filters.</caption>
+          <thead>
+            <tr>
+              <th scope="col" aria-label="Rank">#</th>
+              <th scope="col">Player</th>
+              <th scope="col">Team</th>
+              <th scope="col">Pos</th>
+              <th scope="col" aria-sort="descending"><button type="button" data-sort="onset" disabled>Onset SVA <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="temporal" disabled>Full-window SVA <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="catchProbability" disabled>Catch probability <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="expectedEpa" disabled>Expected EPA <span aria-hidden="true"></span></button></th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-rows">
+            <tr><td colspan="8" class="empty-lineup">Loading receiver scores…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="leaderboard-note" class="score-note">Select a player to see the score breakdown and replay their openings. Catch probability is an average model estimate at pressure onset, and expected EPA is per comparable target. An asterisk marks a provisional grade with 15–29 eligible routes. A dash marks a metric without a qualifying sample.</p>
+    </section>
+
+    <dialog id="player-profile" class="player-profile" aria-labelledby="player-profile-title">
+      <header class="player-profile-header">
+        <div>
+          <p id="player-profile-teams" class="eyebrow">Receiver profile</p>
+          <h2 id="player-profile-title">Player profile</h2>
+        </div>
+        <form method="dialog">
+          <button id="player-profile-close" class="profile-close" type="submit" autofocus>Close</button>
+        </form>
+      </header>
+      <div class="player-profile-content">
+        <dl id="player-profile-scores" class="profile-scores" aria-label="Leaderboard scores"></dl>
+        <p id="player-profile-status" class="status" role="status"></p>
+        <div id="player-profile-breakdown" class="profile-breakdown"></div>
+        <section aria-labelledby="player-profile-plays-title" class="profile-replays">
+          <h3 id="player-profile-plays-title">Open under pressure</h3>
+          <p class="score-note">Each replay opens at the first frame where this receiver met the in-range throw-quality threshold under pressure.</p>
+          <ul id="player-profile-plays" class="profile-play-list"></ul>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog id="player-comparison" class="player-profile player-comparison" aria-labelledby="comparison-title">
+      <header class="player-profile-header">
+        <div>
+          <p class="eyebrow">Receiver breakdowns</p>
+          <h2 id="comparison-title">Compare players</h2>
+        </div>
+        <form method="dialog">
+          <button id="comparison-close" class="profile-close" type="submit" autofocus>Close</button>
+        </form>
+      </header>
+      <div class="player-profile-content comparison-content" tabindex="0" role="region" aria-label="Side-by-side SVA breakdowns">
+        <p id="comparison-status" class="status" role="status"></p>
+        <table class="comparison-table" aria-describedby="comparison-note">
+          <caption class="visually-hidden">Side-by-side comparison of receiver grades and model breakdowns</caption>
+          <thead id="comparison-head"></thead>
+          <tbody id="comparison-rows"></tbody>
+        </table>
+        <p id="comparison-note" class="score-note">Lifts compare similar in-range opportunities. First openings are timed from pressure onset. A dash marks an unavailable metric. Grades and forecasts summarize the full Weeks 1–8 sample.</p>
+      </div>
+    </dialog>
+
+    <footer class="footer">
+      <span>QB Safety Blanket <span aria-hidden="true">·</span> 2021 tracking sample</span>
+      <span><a href="https://github.com/ThompsonJamesBliss/nfl-big-data-bowl-regional-event-data" rel="noopener noreferrer">Tracking and scouting</a> · <a href="https://www.espn.com/nfl/scoreboard" rel="noopener noreferrer">ESPN starters</a> and NFL gamebooks · <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp" rel="noopener noreferrer">nflverse EPA</a></span>
+    </footer>
+  </main>
+</body>
+</html>
