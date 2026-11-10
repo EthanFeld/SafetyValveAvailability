@@ -8,6 +8,7 @@
   <title>Safety Valve Film Room</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
+  <script type="module" src="./leaderboard.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the film room</a>
@@ -20,6 +21,7 @@
       <nav class="masthead-nav" aria-label="Film room sections">
         <a href="#replay">Replay</a>
         <a href="#lineup">Lineup</a>
+        <a href="#leaderboard">Leaderboard</a>
       </nav>
       <span class="season-tag">2021 <span>·</span> WEEKS 1–8</span>
     </div>
@@ -30,7 +32,7 @@
       <div>
         <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Pressure tracking</p>
         <h1 id="site-title">Safety Valve Film Room</h1>
-        <p class="intro-copy">Find the outlet when the pocket breaks down. Replay a pressure snap and see how the available throws change.</p>
+        <p class="intro-copy">Find the outlet when the pocket breaks down. Replay a pressure snap or compare receivers across the tracking sample.</p>
       </div>
       <div class="sample-note" aria-label="122 tracked games at 10 frames per second">
         <div><strong>122</strong><span>Tracked games</span></div>
@@ -156,6 +158,49 @@
         <p class="score-note">Onset SVA compares outlets at the first pressure frame. Full-window SVA also accounts for opening timing and frequency. A star marks a provisional grade based on 15–29 eligible routes. A dash marks a player without a qualifying score.</p>
       </section>
     </div>
+
+    <section id="leaderboard" class="panel leaderboard-panel" aria-labelledby="leaderboard-title">
+      <div class="panel-top leaderboard-top">
+        <div>
+          <p class="eyebrow">Receiver comparison</p>
+          <h2 id="leaderboard-title">Safety Valve Leaderboard</h2>
+        </div>
+        <div class="leaderboard-controls" aria-label="Leaderboard filters">
+          <label class="select-field" for="leaderboard-team">
+            <span>Team</span>
+            <select id="leaderboard-team" disabled><option value="">All teams</option></select>
+          </label>
+          <label class="select-field" for="leaderboard-position">
+            <span>Position</span>
+            <select id="leaderboard-position" disabled><option value="">All positions</option></select>
+          </label>
+        </div>
+      </div>
+      <p id="leaderboard-scope" class="lineup-note">The team filter uses tracked appearances. Scores always summarize the full Weeks 1–8 sample.</p>
+      <p id="leaderboard-status" class="status" role="status">Loading the leaderboard…</p>
+      <p class="leaderboard-scroll-tip">Scroll across the table to see all four metrics.</p>
+      <div class="leaderboard-scroll" tabindex="0" role="region" aria-label="Scrollable leaderboard" aria-describedby="leaderboard-scope leaderboard-note">
+        <table class="leaderboard-table">
+          <caption class="visually-hidden">Receiver metrics. Rank follows the selected sort and filters.</caption>
+          <thead>
+            <tr>
+              <th scope="col" aria-label="Rank">#</th>
+              <th scope="col">Player</th>
+              <th scope="col">Team</th>
+              <th scope="col">Pos</th>
+              <th scope="col" aria-sort="descending"><button type="button" data-sort="onset" disabled>Onset SVA <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="temporal" disabled>Full-window SVA <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="catchProbability" disabled>Catch probability <span aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" data-sort="expectedEpa" disabled>Expected EPA <span aria-hidden="true"></span></button></th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-rows">
+            <tr><td colspan="8" class="empty-lineup">Loading receiver scores…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="leaderboard-note" class="score-note">Catch probability is an average model estimate at pressure onset, and expected EPA is per comparable target. An asterisk marks a provisional grade with 15–29 eligible routes. A dash marks a metric without a qualifying sample.</p>
+    </section>
 
     <footer class="footer">
       <span>QB Safety Blanket <span aria-hidden="true">·</span> 2021 tracking sample</span>

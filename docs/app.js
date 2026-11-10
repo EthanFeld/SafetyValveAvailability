@@ -20,6 +20,7 @@ const ids = ["team-select", "game-select", "play-select", "model-select", "field
   "offense-label", "defense-label", "selected-player"];
 const ui = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
 const initial = new URLSearchParams(location.search);
+const initialHash = location.hash;
 const state = {
   index: null, starters: null, team: "", game: null, play: null, model: "onset",
   lineup: [], valve: null, selected: null, time: 0, animation: null, lastTick: null, loadTicket: 0,
@@ -411,10 +412,13 @@ async function init() {
     ui["model-select"].value = state.model;
     ui["team-select"].value = team;
     bindControls();
-    loadJson("./lineups.json").then((data) => { state.starters = data; renderLineup(); }).catch(() => {
+    const starters = loadJson("./lineups.json").then((data) => { state.starters = data; renderLineup(); }).catch(() => {
       // Static exports can use the charted first-dropback lineup on their own.
     });
-    await selectTeam(team, initial.get("game"), initial.get("play"));
+    await Promise.all([starters, selectTeam(team, initial.get("game"), initial.get("play"))]);
+    if (initialHash === "#leaderboard" && location.hash === initialHash) {
+      document.getElementById("leaderboard")?.scrollIntoView();
+    }
   } catch (error) {
     status(`The play library could not be loaded. ${error.message}`, "error");
   }
