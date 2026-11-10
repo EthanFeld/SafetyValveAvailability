@@ -1,3 +1,5 @@
+import { openPlayerProfile } from "./player-profile.js";
+
 const epaFormat = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 3,
   maximumFractionDigits: 3,
@@ -99,7 +101,14 @@ function render() {
     row.insertCell().textContent = index + 1;
     const name = document.createElement("th");
     name.scope = "row";
-    name.textContent = player.name;
+    const profile = document.createElement("button");
+    profile.type = "button";
+    profile.className = "leaderboard-player";
+    profile.setAttribute("aria-haspopup", "dialog");
+    profile.setAttribute("aria-controls", "player-profile");
+    profile.textContent = player.name;
+    profile.addEventListener("click", () => openPlayerProfile(player, profile));
+    name.append(profile);
     row.append(name);
     row.insertCell().textContent = player.teams.join(", ") || "—";
     row.insertCell().textContent = player.position;

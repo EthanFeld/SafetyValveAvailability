@@ -21,9 +21,13 @@ const ids = ["team-select", "game-select", "play-select", "model-select", "field
 const ui = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
 const initial = new URLSearchParams(location.search);
 const initialHash = location.hash;
+const initialPlayer = Number(initial.get("player"));
+const replayFocus = Number.isSafeInteger(initialPlayer) && initialPlayer > 0
+  ? { playerId: initialPlayer, firstOpen: initial.get("open") === "1" } : null;
 const state = {
   index: null, starters: null, team: "", game: null, play: null, model: "onset",
-  lineup: [], valve: null, selected: null, time: 0, animation: null, lastTick: null, loadTicket: 0,
+  lineup: [], valve: null, selected: null, firstOpenLink: false,
+  time: 0, animation: null, lastTick: null, loadTicket: 0,
 };
 const gameCache = new Map();
 
@@ -82,7 +86,8 @@ async function loadJson(path) {
 function updateLocation() {
   const url = new URL(location.href);
   for (const [key, value] of Object.entries({ team: state.team, game: state.game?.id,
-    play: state.play?.id, model: state.model })) {
+    play: state.play?.id, model: state.model, player: state.play ? state.selected : null,
+    open: state.firstOpenLink ? 1 : null })) {
     if (value != null && value !== "") url.searchParams.set(key, value);
     else url.searchParams.delete(key);
   }
@@ -194,8 +199,10 @@ function updateSelected() {
 
 function choosePlayer(id) {
   state.selected = id === state.selected ? null : id;
+  state.firstOpenLink = false;
   updateSelected();
   paint();
+  updateLocation();
 }
 
 function currentLineup() {
@@ -275,8 +282,9 @@ function renderLineup() {
   paint();
 }
 
-function selectPlay(id) {
+function selectPlay(id, focus = null) {
   stopPlayback();
+  state.firstOpenLink = false;
   state.play = state.game?.plays.find((row) => row.offense === state.team && String(row.id) === String(id)) || null;
   const play = state.play;
   const ready = Boolean(play?.frames.length);
@@ -305,6 +313,15 @@ function selectPlay(id) {
     text("defense-label", `${play.defense} defense`);
     ui.timeline.max = String(play.frames.length - 1);
     state.time = play.frames[0].t;
+    if (focus && play.players.some((item) => item.id === focus.playerId)) {
+      state.selected = focus.playerId;
+      const firstOpen = focus.firstOpen
+        ? play.frames.find((frame) => frame.pressure && frame.open?.includes(focus.playerId)) : null;
+      if (firstOpen) {
+        state.time = firstOpen.t;
+        state.firstOpenLink = true;
+      }
+    }
   }
   updateSelected();
   paint();
@@ -316,7 +333,7 @@ function playLabel(play) {
   return `Q${play.quarter} ${play.clock} · ${play.down}&${play.toGo} · ${play.yardLine} · ${outcome}`;
 }
 
-async function selectGame(id, preferredPlay) {
+async function selectGame(id, preferredPlay, focus = null) {
   const ticket = ++state.loadTicket;
   stopPlayback();
   state.game = null;
@@ -338,9 +355,10 @@ async function selectGame(id, preferredPlay) {
       const selector = ui["play-select"];
       selector.replaceChildren(...candidates.map((play) => option(play.id, playLabel(play))));
       selector.disabled = false;
-      const selected = candidates.find((play) => String(play.id) === preferredPlay) || candidates[0];
+      const preferred = candidates.find((play) => String(play.id) === preferredPlay);
+      const selected = preferred || candidates[0];
       selector.value = String(selected.id);
-      selectPlay(selected.id);
+      selectPlay(selected.id, preferred ? focus : null);
     } else {
       placeholder(ui["play-select"], "No pressure replays for this offense");
       selectPlay(null);
@@ -354,7 +372,7 @@ async function selectGame(id, preferredPlay) {
   }
 }
 
-function selectTeam(team, preferredGame, preferredPlay) {
+function selectTeam(team, preferredGame, preferredPlay, focus = null) {
   state.team = team;
   state.selected = null;
   const games = state.index.games.filter((game) => game.home === team || game.away === team);
@@ -365,9 +383,10 @@ function selectTeam(team, preferredGame, preferredPlay) {
     return option(game.id, `Week ${game.week} · ${home ? "vs." : "at"} ${other}`);
   }));
   selector.disabled = false;
-  const game = games.find((item) => item.id === preferredGame) || games[0];
+  const preferred = games.find((item) => item.id === preferredGame);
+  const game = preferred || games[0];
   selector.value = game.id;
-  return selectGame(game.id, preferredPlay);
+  return selectGame(game.id, preferred ? preferredPlay : null, preferred ? focus : null);
 }
 
 function bindControls() {
@@ -415,9 +434,9 @@ async function init() {
     const starters = loadJson("./lineups.json").then((data) => { state.starters = data; renderLineup(); }).catch(() => {
       // Static exports can use the charted first-dropback lineup on their own.
     });
-    await Promise.all([starters, selectTeam(team, initial.get("game"), initial.get("play"))]);
-    if (initialHash === "#leaderboard" && location.hash === initialHash) {
-      document.getElementById("leaderboard")?.scrollIntoView();
+    await Promise.all([starters, selectTeam(team, initial.get("game"), initial.get("play"), replayFocus)]);
+    if ((initialHash === "#leaderboard" || initialHash === "#replay") && location.hash === initialHash) {
+      document.getElementById(initialHash.slice(1))?.scrollIntoView();
     }
   } catch (error) {
     status(`The play library could not be loaded. ${error.message}`, "error");

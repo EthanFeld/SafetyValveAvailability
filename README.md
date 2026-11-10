@@ -8,6 +8,7 @@ Safety Valve Availability (SVA) measures the outlets a quarterback has under pre
 
 - **Film Room** — Pick an offense, game, and play. Replay the tracking, scrub the timeline, or step through individual frames. The gold ring identifies the highest-scoring starter on the displayed lineup. The dashed aqua ring identifies the best in-range throw on the current pressure frame.
 - **Leaderboard** — Compare 183 players across all 32 teams. Filter by team and position, then sort by onset SVA, full-window SVA, catch probability, or expected EPA. A player tracked with multiple teams can appear under each. Displayed scores are pooled across the sample.
+- **Player profiles** — Select a player’s name for a breakdown of the forecasts, context benchmarks, and opening frequency behind their scores. Choose a play from the profile to jump to the player’s first open pressure frame, where their in-range throw score reached at least 25 out of 100.
 - **Sample sizes** — The analysis leaderboards require at least 30 eligible routes. The site also shows provisional grades based on 15–29 eligible routes, marked with an asterisk. A dash indicates that a metric is unavailable.
 
 ## What the scores mean
@@ -57,6 +58,7 @@ python rank_context_sva.py
 python evaluate_temporal_sva.py
 python build_site_data.py
 python build_site_leaderboard.py
+python build_site_profiles.py
 ```
 
 The committed `docs/lineups.json` is enough for a local rebuild. To refresh it from the original sources, install `pypdf` and run `python build_site_lineups.py`. This step uses the network to fetch ESPN lineups and NFL gamebooks.
@@ -65,10 +67,10 @@ The committed `docs/lineups.json` is enough for a local rebuild. To refresh it f
 
 | Path | Contents |
 | --- | --- |
-| [`docs/`](docs/) | Static Film Room and leaderboard, starting lineups, and per-game replay files. |
+| [`docs/`](docs/) | Static Film Room, leaderboard, player profiles, starting lineups, and per-game replay files. |
 | [`safety_valve.py`](safety_valve.py), [`sva_data.py`](sva_data.py) | Tracking ingestion, pressure detection, throw geometry, and frame-level scoring. |
 | [`train_sva_joint.py`](train_sva_joint.py), [`rank_context_sva.py`](rank_context_sva.py), [`evaluate_temporal_sva.py`](evaluate_temporal_sva.py) | Catch and EPA models, receiver grading, and held-out evaluation. |
-| [`build_site_data.py`](build_site_data.py), [`build_site_lineups.py`](build_site_lineups.py), [`build_site_leaderboard.py`](build_site_leaderboard.py) | Static site data exporters. |
+| [`build_site_data.py`](build_site_data.py), [`build_site_lineups.py`](build_site_lineups.py), [`build_site_leaderboard.py`](build_site_leaderboard.py), [`build_site_profiles.py`](build_site_profiles.py) | Static site data exporters. |
 | [`sva_context_leaderboard.csv`](sva_context_leaderboard.csv), [`sva_temporal_leaderboard.csv`](sva_temporal_leaderboard.csv), [`sva_joint_outlets.csv`](sva_joint_outlets.csv) | Onset grades, full-window grades, and route-level forecasts. |
 
 ### Publish on GitHub Pages
@@ -77,6 +79,6 @@ The live repository publishes from `main` → `/docs`. To enable Pages on a fork
 
 ## Data and attribution
 
-- **Tracking and scouting** — NFL Next Gen Stats player and ball tracking and Pro Football Focus scouting labels. [Big Data Bowl regional archive and documentation](https://github.com/ThompsonJamesBliss/nfl-big-data-bowl-regional-event-data) · [NYU challenge brief](NFL%20Big%20Data%20Bowl%20-%20NYU%20Edition.pdf)
+- **Tracking and scouting** — NFL Next Gen Stats player and ball tracking and Pro Football Focus scouting labels. [Big Data Bowl regional archive and documentation](https://github.com/ThompsonJamesBliss/nfl-big-data-bowl-regional-event-data)
 - **Play outcomes and EPA** — The 2021 nflverse play-by-play release, distributed under CC BY 4.0. The local extract matches `old_game_id` and `play_id` to the tracking archive and checks the possession team. [nflverse release](https://github.com/nflverse/nflverse-data/releases/tag/pbp) · [EPA field documentation](https://nflfastr.com/reference/fast_scraper.html) · [nflverse licensing](https://github.com/nflverse)
 - **Starting lineups and handedness** — ESPN and NFL gamebooks supply game-day starters. The handedness file records its sources per quarterback. [ESPN scoreboard](https://www.espn.com/nfl/scoreboard/_/week/1/year/2021/seasontype/2) · [Quarterback source table](qb_handedness.csv)

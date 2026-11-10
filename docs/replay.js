@@ -2,6 +2,7 @@ const WIDTH = 120;
 const HEIGHT = 160 / 3;
 const GOLD = "#f9ca67";
 const AQUA = "#81f5df";
+const SELECTED = "#c0dafa";
 
 export function frameAt(frames, time) {
   let left = 0;
@@ -172,7 +173,7 @@ export function renderReplay(canvas, play, time, { valve, selected, nameOf } = {
     circle(ctx, player.point, qb ? 1.48 : 1.33, offense ? "#67c8fd" : "#f28378", "#0f2523", 0.22);
     if (best) circle(ctx, player.point, isValve ? 2.98 : 2.38, null, AQUA, 0.31, [0.65, 0.32]);
     if (isValve) circle(ctx, player.point, 2.1, null, GOLD, 0.40);
-    if (marked && !isValve && !best) circle(ctx, player.point, 2.06, null, "#c0dafa", 0.32);
+    if (marked && !isValve && !best) circle(ctx, player.point, 2.3, null, SELECTED, 0.42);
     ctx.fillStyle = "#112324";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -183,10 +184,19 @@ export function renderReplay(canvas, play, time, { valve, selected, nameOf } = {
 
   const valvePlayer = players.find((p) => p.id === valve && p.point);
   const bestPlayer = frame.pressure ? players.find((p) => p.id === frame.best && p.point) : null;
-  if (valvePlayer) labelPlayer(ctx, valvePlayer.point, nameOf?.(valvePlayer.id) || "Safety valve", GOLD);
-  if (bestPlayer && bestPlayer.id !== valve) {
+  const selectedPlayer = players.find((p) => p.id === selected && p.point);
+  const closeToSelection = (p) => selectedPlayer && p.id !== selected &&
+    Math.abs(p.point[0] - selectedPlayer.point[0]) < 12 && Math.abs(p.point[1] - selectedPlayer.point[1]) < 6;
+  if (valvePlayer && !closeToSelection(valvePlayer)) {
+    labelPlayer(ctx, valvePlayer.point, nameOf?.(valvePlayer.id) || "Safety valve", GOLD);
+  }
+  if (bestPlayer && bestPlayer.id !== valve && !closeToSelection(bestPlayer)) {
     const close = valvePlayer && Math.abs(valvePlayer.point[1] - bestPlayer.point[1]) < 6;
     labelPlayer(ctx, bestPlayer.point, nameOf?.(bestPlayer.id) || "Best outlet", AQUA, close);
+  }
+  if (selectedPlayer && selected !== valve && selected !== bestPlayer?.id) {
+    const open = frame.pressure && frame.open?.includes(selected);
+    labelPlayer(ctx, selectedPlayer.point, `${nameOf?.(selected) || "Selected player"}${open ? " · Open" : ""}`, SELECTED);
   }
 }
 

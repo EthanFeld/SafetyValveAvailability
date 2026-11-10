@@ -338,9 +338,12 @@ def run(data, archive, board_output, route_output, landmark_frames=DEFAULT_LANDM
                     "full_open_frames", "full_open_share", "full_early_weighted_open_share", "full_first_in_range_seconds",
                     "full_first_open_seconds", "full_wait_for_open_seconds", "full_longest_open_seconds",
                     "catch_probability", "hurdle_epa_on_comparable_targets", "caught")
-    write_csv(route_output, (*route_fields, "base_temporal_sva"), (
+    write_csv(route_output, (*route_fields, "base_temporal_sva", "catch_above_context_pp",
+                             "epa_above_context_given_catch", "open_share_above_context"), (
         dict({field: None if isinstance(row[field], (float, np.floating)) and not np.isfinite(row[field]) else row[field]
-              for field in route_fields}, base_temporal_sva=score) for row, score in zip(routes, scores)
+              for field in route_fields}, base_temporal_sva=score, catch_above_context_pp=100 * catch_lift,
+             epa_above_context_given_catch=epa_lift, open_share_above_context=open_lift)
+        for row, score, catch_lift, epa_lift, open_lift in zip(routes, scores, catch, epa, availability)
     ))
 
 

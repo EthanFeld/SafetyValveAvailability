@@ -119,6 +119,7 @@
           <li><span class="marker marker-ball" aria-hidden="true"></span>Ball</li>
           <li><span class="marker marker-valve" aria-hidden="true"></span>Lineup safety valve</li>
           <li><span class="marker marker-best" aria-hidden="true"></span>Best outlet this frame</li>
+          <li><span class="marker marker-selected" aria-hidden="true"></span>Selected player</li>
         </ul>
         <p id="selected-player" class="selected-player" aria-live="polite"></p>
         <p class="score-note">Tracking ends shortly after the throw, sack, or scramble decision. The description and EPA show the recorded play result.</p>
@@ -199,8 +200,30 @@
           </tbody>
         </table>
       </div>
-      <p id="leaderboard-note" class="score-note">Catch probability is an average model estimate at pressure onset, and expected EPA is per comparable target. An asterisk marks a provisional grade with 15–29 eligible routes. A dash marks a metric without a qualifying sample.</p>
+      <p id="leaderboard-note" class="score-note">Select a player to see the score breakdown and replay their openings. Catch probability is an average model estimate at pressure onset, and expected EPA is per comparable target. An asterisk marks a provisional grade with 15–29 eligible routes. A dash marks a metric without a qualifying sample.</p>
     </section>
+
+    <dialog id="player-profile" class="player-profile" aria-labelledby="player-profile-title">
+      <header class="player-profile-header">
+        <div>
+          <p id="player-profile-teams" class="eyebrow">Receiver profile</p>
+          <h2 id="player-profile-title">Player profile</h2>
+        </div>
+        <form method="dialog">
+          <button id="player-profile-close" class="profile-close" type="submit" autofocus>Close</button>
+        </form>
+      </header>
+      <div class="player-profile-content">
+        <dl id="player-profile-scores" class="profile-scores" aria-label="Leaderboard scores"></dl>
+        <p id="player-profile-status" class="status" role="status"></p>
+        <div id="player-profile-breakdown" class="profile-breakdown"></div>
+        <section aria-labelledby="player-profile-plays-title" class="profile-replays">
+          <h3 id="player-profile-plays-title">Open under pressure</h3>
+          <p class="score-note">Each replay opens at the first frame where this receiver met the in-range throw-quality threshold under pressure.</p>
+          <ul id="player-profile-plays" class="profile-play-list"></ul>
+        </section>
+      </div>
+    </dialog>
 
     <footer class="footer">
       <span>QB Safety Blanket <span aria-hidden="true">·</span> 2021 tracking sample</span>
